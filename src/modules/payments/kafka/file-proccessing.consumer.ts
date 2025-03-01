@@ -7,7 +7,7 @@ import { KafkaConsumer } from 'src/shared/kafka/kafka.consumer';
 @Injectable()
 export class PaymentsConsumer extends KafkaConsumer {
   constructor(configService: ConfigService) {
-    super(configService, KafkaTopics.processedLines);
+    super(configService, KafkaTopics.processedLines, 'payment');
   }
 
   protected async processMessage(message: KafkaMessage) {

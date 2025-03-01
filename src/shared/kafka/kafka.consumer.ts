@@ -18,11 +18,14 @@ export abstract class KafkaConsumer implements OnModuleInit, OnModuleDestroy {
   constructor(
     private readonly configService: ConfigService,
     private readonly topic: KafkaTopics,
+    private readonly groupId: string,
   ) {
     this.kafka = new Kafka({
       brokers: [this.configService.get<string>('KAFKA_BROKER') || 'kafka:9092'],
     });
-    this.consumer = this.kafka.consumer({ groupId: 'billing-group' });
+    this.consumer = this.kafka.consumer({
+      groupId,
+    });
   }
 
   async onModuleInit() {
