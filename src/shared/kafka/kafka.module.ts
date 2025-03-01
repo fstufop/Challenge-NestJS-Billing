@@ -4,6 +4,8 @@ import { FileProcessingProducer } from 'src/modules/file-processing/kafka/file-p
 import { FileProcessingConsumer } from 'src/modules/file-processing/kafka/file-proccessing.consumer';
 import { FileApiProducer } from 'src/modules/file-api/kafka/file-api.producer';
 import { PaymentsConsumer } from 'src/modules/payments/kafka/file-proccessing.consumer';
+import { FileProcessingService } from 'src/modules/file-processing/file-processing.service';
+import { S3Service } from '../storage/s3.service';
 
 @Module({
   imports: [
@@ -18,8 +20,6 @@ import { PaymentsConsumer } from 'src/modules/payments/kafka/file-proccessing.co
           },
           consumer: {
             groupId: 'billing-group',
-            sessionTimeout: 30000,
-            heartbeatInterval: 5000,
           },
         },
       },
@@ -31,6 +31,8 @@ import { PaymentsConsumer } from 'src/modules/payments/kafka/file-proccessing.co
     FileProcessingConsumer,
     FileApiProducer,
     PaymentsConsumer,
+    FileProcessingService,
+    S3Service,
   ],
   exports: [
     FileProcessingProducer,

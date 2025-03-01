@@ -12,3 +12,7 @@ Este projeto usa **NestJS, Kafka, PostgreSQL e LocalStack** para simular um sist
    ```sh
    git clone https://github.com/fstufop/DesafioBillingNestJs.git
    cd DesafioBillingNestJs
+
+2. Crie o bucket do S3 no local stack:
+   chmod +x localstack-init.sh
+   aws --endpoint-url=http://localhost:4566 s3 mb s3://file-api-bucket
