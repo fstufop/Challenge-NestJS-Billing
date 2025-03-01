@@ -16,7 +16,7 @@ export class FileUploadRepository {
   }
 
   async findFileByHash(fileHash: string): Promise<FileUploadEntity | null> {
-    return this.repo.findOne({ where: { file_hash: fileHash } });
+    return this.repo.findOne({ where: { fileHash } });
   }
 
   async findFileById(id: string): Promise<FileUploadEntity | null> {

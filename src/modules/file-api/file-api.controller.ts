@@ -15,6 +15,9 @@ export class FileApiController {
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
-    return this.fileApiService.uploadFile(file);
+    await this.fileApiService.uploadFile(file);
+    return {
+      message: `O arquivo ${file.originalname} foi enviado com sucesso`,
+    };
   }
 }

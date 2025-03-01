@@ -1,19 +1,24 @@
-import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+} from 'typeorm';
 
 @Entity('file_uploaded')
 export class FileUploadEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
-  file_name: string;
+  @Column({ name: 'file_name' })
+  fileName: string;
 
-  @Column({ unique: true })
-  file_hash: string;
+  @Column({ name: 'file_hash', unique: true })
+  fileHash: string;
 
   @Column()
   url: string;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 }
