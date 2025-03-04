@@ -30,7 +30,7 @@ export abstract class KafkaProducer implements OnModuleInit, OnModuleDestroy {
 
   async onModuleInit() {
     await this.producer.connect();
-    this.logger.log('✅ Kafka Producer conectado.');
+    this.logger.log('Kafka Producer conectado.');
   }
 
   async sendMessage<T>(topic: KafkaTopics, message: T) {
@@ -39,9 +39,9 @@ export abstract class KafkaProducer implements OnModuleInit, OnModuleDestroy {
         topic,
         messages: [{ value: JSON.stringify(message) }],
       });
-      this.logger.log(`📨 Mensagem enviada para o tópico ${topic}`);
+      this.logger.log(`Mensagem enviada para o tópico ${topic}`);
     } catch (error) {
-      this.logger.error(`❌ Erro ao enviar mensagem para o tópico ${topic}: ${error.message}`);
+      this.logger.error(`Erro ao enviar mensagem para o tópico ${topic}: ${error.message}`);
     }
   }
 
@@ -53,9 +53,8 @@ export abstract class KafkaProducer implements OnModuleInit, OnModuleDestroy {
       const batchPromises = batches.map(batch => this.sendBatch(topic, batch));
 
       await Promise.all(batchPromises);
-      this.logger.log(`✅ ${messages.length} mensagens enviadas ao Kafka no tópico ${topic}`);
     } catch (error) {
-      this.logger.error(`❌ Erro ao enviar batch de mensagens para Kafka: ${error.message}`);
+      this.logger.error(`Erro ao enviar batch de mensagens para Kafka: ${error.message}`);
     }
   }
 
@@ -69,9 +68,9 @@ export abstract class KafkaProducer implements OnModuleInit, OnModuleDestroy {
         })),
         acks: 1,
       });
-      this.logger.log(`🚀 Batch de ${batch.length} mensagens enviado com sucesso.`);
+      this.logger.log(`Batch de ${batch.length} mensagens enviado com sucesso.`);
     } catch (error) {
-      this.logger.error(`❌ Erro ao enviar batch para Kafka: ${error.message}`);
+      this.logger.error(`Erro ao enviar batch para Kafka: ${error.message}`);
     }
   }
 
@@ -85,6 +84,6 @@ export abstract class KafkaProducer implements OnModuleInit, OnModuleDestroy {
 
   async onModuleDestroy() {
     await this.producer.disconnect();
-    this.logger.log('❌ Kafka Producer desconectado.');
+    this.logger.log('Kafka Producer desconectado.');
   }
 }

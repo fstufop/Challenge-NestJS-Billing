@@ -11,6 +11,6 @@ export class PaymentsConsumer extends KafkaConsumer {
   }
 
   protected async processMessage(message: KafkaMessage) {
-    // console.log(`Processando arquivo recebido:`, message);
+    console.log(`Processando arquivo recebido:`);
   }
 }

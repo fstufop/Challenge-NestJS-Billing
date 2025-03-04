@@ -8,6 +8,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProcessedLineEntity } from './entities/processed-lines.entity';
 import { ProcessingFileEntity } from './entities/processing-files.entity';
 import { FileProcessingProducer } from './kafka/file-proccessing.producer';
+import { FileValidatorFactory } from 'src/shared/validators/file-validator.factory';
+import { DebtFileValidator } from 'src/shared/validators/debt-file.validator';
 
 @Module({
   imports: [
@@ -24,11 +26,14 @@ import { FileProcessingProducer } from './kafka/file-proccessing.producer';
     ProcessingFilesRepository,
     ProcessedLineRepository,
     FileProcessingProducer,
+    FileValidatorFactory,
+    DebtFileValidator,
   ],
   exports: [
     FileProcessingService,
     ProcessingFilesRepository,
     ProcessedLineRepository,
+    FileValidatorFactory,
   ],
 })
 export class FileProcessingModule {}

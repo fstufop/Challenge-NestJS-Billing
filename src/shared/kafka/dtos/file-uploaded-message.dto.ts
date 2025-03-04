@@ -1,4 +1,5 @@
-import { IsString, IsUUID, IsUrl } from 'class-validator';
+import { IsEnum, IsString, IsUUID, IsUrl } from 'class-validator';
+import { FileType } from 'src/shared/validators/file-validator.enum';
 
 export class FileUploadedMessageDto {
   @IsUUID()
@@ -12,4 +13,7 @@ export class FileUploadedMessageDto {
 
   @IsUrl()
   s3Url: string;
+
+  @IsEnum(FileType)
+  fileType: FileType
 }

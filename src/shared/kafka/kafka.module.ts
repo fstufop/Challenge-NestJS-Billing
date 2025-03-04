@@ -8,6 +8,8 @@ import { FileProcessingService } from 'src/modules/file-processing/file-processi
 import { S3Service } from '../storage/s3.service';
 import { ProcessedLineRepository } from 'src/modules/file-processing/repositories/processed-line-repository';
 import { ProcessingFilesRepository } from 'src/modules/file-processing/repositories/processing-files-repository';
+import { FileValidator } from '../validators/interfaces/file-validator.interface';
+import { FileProcessingModule } from 'src/modules/file-processing/file-processing.module';
 
 @Module({
   imports: [
@@ -26,6 +28,7 @@ import { ProcessingFilesRepository } from 'src/modules/file-processing/repositor
         },
       },
     ]),
+    FileProcessingModule,
   ],
   controllers: [],
   providers: [
@@ -33,10 +36,6 @@ import { ProcessingFilesRepository } from 'src/modules/file-processing/repositor
     FileProcessingConsumer,
     FileApiProducer,
     PaymentsConsumer,
-    FileProcessingService,
-    ProcessedLineRepository,
-    ProcessingFilesRepository,
-    S3Service,
   ],
   exports: [
     FileProcessingProducer,
