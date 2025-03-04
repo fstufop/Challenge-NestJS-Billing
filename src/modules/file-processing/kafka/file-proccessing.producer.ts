@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { ProcessedLineMessageDto } from 'src/shared/kafka/dtos/processed-line-message.dto';
 import { KafkaTopics } from 'src/shared/kafka/enums/kafka.topics.enum';
 import { KafkaProducer } from 'src/shared/kafka/kafka.producer';
 
@@ -10,7 +9,7 @@ export class FileProcessingProducer extends KafkaProducer {
     super(configService);
   }
 
-  async sendBatchProcessedLine(line: any[]) {
-    await this.sendBatchProcessedLines(KafkaTopics.processedLines, line);
+  async sendBatchProcessedLine(lines: { key: string; value: string }[]) {
+    await this.sendBatchProcessedLines(KafkaTopics.processedLines, lines);
   }
 }
