@@ -10,7 +10,7 @@ export class FileProcessingProducer extends KafkaProducer {
     super(configService);
   }
 
-  async sendProcessedLine(line: ProcessedLineMessageDto) {
-    await this.sendMessage(KafkaTopics.processedLines, line);
+  async sendBatchProcessedLine(line: any[]) {
+    await this.sendBatchProcessedLines(KafkaTopics.processedLines, line);
   }
 }

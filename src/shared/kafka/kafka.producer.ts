@@ -4,7 +4,7 @@ import {
   OnModuleDestroy,
   OnModuleInit,
 } from '@nestjs/common';
-import { Kafka, Producer } from 'kafkajs';
+import { Kafka, Message, Producer } from 'kafkajs';
 import { ConfigService } from '@nestjs/config';
 import { KafkaTopics } from './enums/kafka.topics.enum';
 
@@ -32,11 +32,38 @@ export abstract class KafkaProducer implements OnModuleInit, OnModuleDestroy {
         topic,
         messages: [{ value: JSON.stringify(message) }],
       });
-      this.logger.log(`Mensagem enviada para o tópico ${topic}`);
+      // this.logger.log(`Mensagem enviada para o tópico ${topic}`);
     } catch (error) {
       this.logger.error(
         `Erro ao enviar mensagem para o tópico ${topic}:`,
         error,
+      );
+    }
+  }
+
+  async sendBatchProcessedLines(
+    topic: KafkaTopics,
+    messages: { key: string; value: string }[],
+  ) {
+    if (!messages.length) return;
+
+    try {
+      const batchMessages: Message[] = messages.map((msg) => ({
+        key: msg.key,
+        value: msg.value,
+      }));
+
+      await this.producer.send({
+        topic,
+        messages: batchMessages,
+      });
+
+      this.logger.log(
+        `✅ Enviadas ${messages.length} mensagens para o tópico ${topic}`,
+      );
+    } catch (error) {
+      this.logger.error(
+        `❌ Erro ao enviar mensagens para Kafka: ${error.message}`,
       );
     }
   }

@@ -6,6 +6,8 @@ import { FileApiProducer } from 'src/modules/file-api/kafka/file-api.producer';
 import { PaymentsConsumer } from 'src/modules/payments/kafka/file-proccessing.consumer';
 import { FileProcessingService } from 'src/modules/file-processing/file-processing.service';
 import { S3Service } from '../storage/s3.service';
+import { ProcessedLineRepository } from 'src/modules/file-processing/repositories/processed-line-repository';
+import { ProcessingFilesRepository } from 'src/modules/file-processing/repositories/processing-files-repository';
 
 @Module({
   imports: [
@@ -32,6 +34,8 @@ import { S3Service } from '../storage/s3.service';
     FileApiProducer,
     PaymentsConsumer,
     FileProcessingService,
+    ProcessedLineRepository,
+    ProcessingFilesRepository,
     S3Service,
   ],
   exports: [
