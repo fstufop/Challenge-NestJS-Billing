@@ -6,6 +6,7 @@ import { FileUploadRepository } from './repositories/file-upload.repository';
 import { FileApiProducer } from './kafka/file-api.producer';
 import { FileUploadedMessageDto } from 'src/shared/kafka/dtos/file-uploaded-message.dto';
 import { extname } from 'path';
+import { FileType } from 'src/shared/validators/file-validator.enum';
 
 @Injectable()
 export class FileApiService {
@@ -48,6 +49,7 @@ export class FileApiService {
       fileHash,
       fileId,
       s3Url,
+      fileType: FileType.DEBT,
     };
 
     await this.fileApiProducer.notifyFileUploaded(fileInfo);

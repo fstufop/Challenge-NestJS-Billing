@@ -19,7 +19,7 @@ export class FileProcessingConsumer extends KafkaConsumer {
     if (messageContent) {
       const fileInfo = JSON.parse(messageContent.toString());
       console.log(fileInfo)
-      this.fileProcessingService.proccessMessage(fileInfo)
+      this.fileProcessingService.processMessage(fileInfo)
     } else {
       this.logger.debug("Mesagem recebida sem conteúdo")
     }

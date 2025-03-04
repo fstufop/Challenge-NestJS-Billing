@@ -44,7 +44,6 @@ export class S3Service {
   async downloadFile(fileKey: string, filePath: string): Promise<Buffer> {
     this.logger.debug(`Iniciando o download do arquivo ${fileKey}`);
     const key = fileKey.split('/').pop();
-    console.log(`Chave extraída: ${key}`);
     try {
       const params = {
         Bucket: this.bucketName,
