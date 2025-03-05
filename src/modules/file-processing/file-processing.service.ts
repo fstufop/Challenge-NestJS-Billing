@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { FileUploadedMessageDto } from 'src/shared/kafka/dtos/file-uploaded-message.dto';
-import { S3Service } from 'src/shared/storage/s3.service';
+import { FileUploadedMessageDto } from '../../shared/kafka/dtos/file-uploaded-message.dto';
+import { S3Service } from '../../shared/storage/s3.service';
 import * as fs from 'fs';
 import * as crypto from 'crypto';
 import { v4 as uuidv4 } from 'uuid';
@@ -16,9 +16,8 @@ import {
 } from './entities/processing-files.entity';
 import { FileProcessingProducer } from './kafka/file-proccessing.producer';
 import * as fastCsv from 'fast-csv';
-import { FileValidatorFactory } from 'src/shared/validators/file-validator.factory';
-import { FileValidator } from 'src/shared/validators/interfaces/file-validator.interface';
-
+import { FileValidatorFactory } from '../../modules/file-processing/strategies/file-validator.factory';
+import { FileValidator } from '../../modules/file-processing/strategies/file-validator.interface';
 
 @Injectable()
 export class FileProcessingService {
@@ -58,7 +57,9 @@ export class FileProcessingService {
 
     if (processingFile.status === ProcessingStatus.PENDING) {
       const filePath = `./temp/${fileInfo.fileName}`;
-      const validator = this.fileValidatorFactory.getValidator(fileInfo.fileType);
+      const validator = this.fileValidatorFactory.getValidator(
+        fileInfo.fileType,
+      );
 
       await this.s3Service.downloadFile(fileInfo.s3Url, filePath);
       await this.processLargeFile(filePath, processingFile, validator);
@@ -70,7 +71,9 @@ export class FileProcessingService {
     const elapsedTime = (endTime - startTime) / 1000;
 
     this.logger.log(`Processamento do arquivo ${fileInfo.fileId} finalizado.`);
-    this.logger.log(`⏱️ Tempo total de processamento: ${elapsedTime.toFixed(2)} segundos.`);
+    this.logger.log(
+      `⏱️ Tempo total de processamento: ${elapsedTime.toFixed(2)} segundos.`,
+    );
   }
 
   private async processLargeFile(
@@ -172,7 +175,9 @@ export class FileProcessingService {
 
   private getFileProcessedStatus(totalRecords: number, failedRecords: number) {
     if (failedRecords > 0) {
-      return failedRecords === totalRecords ? ProcessingStatus.FAILED : ProcessingStatus.PROCESSED_WITH_ERRORS;
+      return failedRecords === totalRecords
+        ? ProcessingStatus.FAILED
+        : ProcessingStatus.PROCESSED_WITH_ERRORS;
     } else {
       return ProcessingStatus.PROCESSED;
     }

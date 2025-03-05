@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { KafkaMessage } from 'kafkajs';
-import { KafkaTopics } from 'src/shared/kafka/enums/kafka.topics.enum';
-import { KafkaConsumer } from 'src/shared/kafka/kafka.consumer';
+import { KafkaTopics } from '../../../shared/kafka/enums/kafka.topics.enum';
+import { KafkaConsumer } from '../../../shared/kafka/kafka.consumer';
 import { FileProcessingService } from '../file-processing.service';
 
 @Injectable()
@@ -18,7 +18,6 @@ export class FileProcessingConsumer extends KafkaConsumer {
     const messageContent = message.value;
     if (messageContent) {
       const fileInfo = JSON.parse(messageContent.toString());
-      console.log(fileInfo)
       this.fileProcessingService.processMessage(fileInfo)
     } else {
       this.logger.debug("Mesagem recebida sem conteúdo")

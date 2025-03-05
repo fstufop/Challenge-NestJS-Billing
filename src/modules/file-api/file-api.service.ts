@@ -1,12 +1,12 @@
 import { Injectable, BadRequestException, Logger } from '@nestjs/common';
 import * as crypto from 'crypto';
 import { v4 as uuidv4 } from 'uuid';
-import { S3Service } from 'src/shared/storage/s3.service';
 import { FileUploadRepository } from './repositories/file-upload.repository';
 import { FileApiProducer } from './kafka/file-api.producer';
-import { FileUploadedMessageDto } from 'src/shared/kafka/dtos/file-uploaded-message.dto';
+import { FileUploadedMessageDto } from '../../shared/kafka/dtos/file-uploaded-message.dto';
 import { extname } from 'path';
-import { FileType } from 'src/shared/validators/file-validator.enum';
+import { FileType } from '../../modules/file-processing/strategies/file-validator.enum';
+import { S3Service } from '../../shared/storage/s3.service';
 
 @Injectable()
 export class FileApiService {
@@ -36,7 +36,7 @@ export class FileApiService {
       );
 
     const fileExtension = extname(file.originalname).toLowerCase();
-    
+
     if (fileExtension !== '.csv') {
       throw new BadRequestException('Apenas arquivos CSV são permitidos.');
     }

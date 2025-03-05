@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { FileValidator } from './interfaces/file-validator.interface';
+import { FileValidator } from './file-validator.interface';
 
 @Injectable()
 export class DebtFileValidator implements FileValidator {
