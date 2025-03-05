@@ -67,21 +67,30 @@ Este projeto simula o processamento de arquivos csv para geração de boletos e 
    ```
 
 ### 2. Instalar dependências
-`npm install` 
-
-### 3. Suba o docker:
-`docker-compose up -d`
-
-### 4. Crie o bucket do S3 no local stack:
+   ```sh
+npm install
+   ```
+### 3. Subir o container:
+```sh
+docker-compose up -d
+```
+### 4. Criar o bucket do S3 no local stack:
 ```sh
 chmod +x localstack-init.sh
 aws --endpoint-url=http://localhost:4566 s3 mb s3://file-api-bucket
 ```
-### 5. Rodar as migrations
-`npm run migration:run`
-
-### 6. Rodar o projeto
-`npm run start:dev`
+### 5. Compilar o projeto
+```sh
+npm run build
+```
+### 6. Rodar as migrations
+```sh
+npm run migration:run
+```
+### 7. Rodar o projeto
+```sh
+npm run start:dev
+```
 
 ### Utilização do sistema
 O arquivo pode ser enviado via requisição POST utilizando:
