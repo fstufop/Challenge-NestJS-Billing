@@ -1,6 +1,6 @@
 # 🚀 Desafio Billing NestJS
 
-Este projeto simula o processamento de arquivos csv para geração de boletos e envio das cobranças. O projeto foi arquitetado considerando três microsserviços para lidar com o upload (file-api) e processamento do arquivo (file-processing) e geração e envio dos boletos.
+Este projeto simula o processamento de arquivos csv para geração de boletos e envio das cobranças. O projeto foi arquitetado considerando três microsserviços para lidar com o upload (file-api) e processamento do arquivo (file-processing) e geração e envio dos boletos (payments).
  
  <sub>📝 Ps:. O sistema foi construído em um único serviço e separado em módulos para facilitar a implementação.<sub>
 
