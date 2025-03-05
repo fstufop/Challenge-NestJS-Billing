@@ -17,7 +17,7 @@ export class PaymentsService {
   ) {}
 
   async processPaymentMessage(data: any) {
-    this.logger.log(`📥 Recebendo pagamento para processamento: ${data.debtId}`);
+    this.logger.log(`Recebendo pagamento para processamento: ${data.debtId}`);
 
     let rawData;
     try {
