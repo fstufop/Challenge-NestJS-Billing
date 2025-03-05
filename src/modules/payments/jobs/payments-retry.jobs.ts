@@ -19,7 +19,7 @@ export class PaymentCron implements OnModuleInit {
 
   private scheduleRetryFailedBoletoGeneration() {
     cron.schedule('*/5 * * * *', async () => {
-      this.logger.log('⏳ Tentando reprocessar boletos com falha...');
+      this.logger.log('Tentando reprocessar boletos com falha...');
       const failedPayments = await this.paymentRepository.getFailedPayments();
       for (const payment of failedPayments) {
         await this.paymentService.generateBankslip(payment.debtId);
@@ -29,7 +29,7 @@ export class PaymentCron implements OnModuleInit {
 
   private scheduleRetryFailedEmails() {
     cron.schedule('*/5 * * * *', async () => {
-      this.logger.log('📩 Tentando reenviar e-mails de boleto falhados...');
+      this.logger.log('Tentando reenviar e-mails de boleto falhados...');
       const pendingEmails = await this.paymentRepository.getPendingEmails();
       for (const payment of pendingEmails) {
         await this.paymentService.sendEmail(payment.debtId);

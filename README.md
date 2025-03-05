@@ -103,3 +103,6 @@ curl --location 'http://localhost:3000/files/upload' \
 - [Swagger](http://localhost:3006/docs#/FileApi)
 
 `http://localhost:3006/docs#/FileApi`
+
+### Arquivo para processamento:
+📄 [input.csv](https://drive.google.com/file/d/1aO8pfQ-KK8LU5GxM0zNLuvggfCBcFWa1/view?usp=sharing)
