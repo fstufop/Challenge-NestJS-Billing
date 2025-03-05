@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { KafkaMessage } from 'kafkajs';
-import { KafkaTopics } from 'src/shared/kafka/enums/kafka.topics.enum';
-import { KafkaConsumer } from 'src/shared/kafka/kafka.consumer';
+import { KafkaTopics } from '../../../shared/kafka/enums/kafka.topics.enum';
+import { KafkaConsumer } from '../../../shared/kafka/kafka.consumer';
 import { PaymentsService } from '../payments.service';
 
 @Injectable()
@@ -24,7 +24,9 @@ export class PaymentsConsumer extends KafkaConsumer {
 
   private parseKafkaMessage(message: KafkaMessage): any | null {
     try {
-      const parsedValue = JSON.parse(Buffer.from(message.value as Buffer).toString('utf-8'));
+      const parsedValue = JSON.parse(
+        Buffer.from(message.value as Buffer).toString('utf-8'),
+      );
 
       if (typeof parsedValue.rawData === 'string') {
         parsedValue.rawData = JSON.parse(parsedValue.rawData);

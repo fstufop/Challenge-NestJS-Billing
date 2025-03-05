@@ -6,7 +6,7 @@ import { FileUploadedMessageDto } from '../../../shared/kafka/dtos/file-uploaded
 import { KafkaTopics } from '../../../shared/kafka/enums/kafka.topics.enum';
 import { FileType } from '../../../modules/file-processing/strategies/file-validator.enum';
 
-jest.mock('../../../shared/kafka/kafka.producer'); // Mocka a classe KafkaProducer
+jest.mock('../../../shared/kafka/kafka.producer');
 
 describe('FileApiProducer', () => {
   let fileApiProducer: FileApiProducer;
@@ -32,7 +32,9 @@ describe('FileApiProducer', () => {
     }).compile();
 
     fileApiProducer = module.get<FileApiProducer>(FileApiProducer);
-    kafkaProducerMock = module.get<KafkaProducer>(KafkaProducer) as jest.Mocked<KafkaProducer>;
+    kafkaProducerMock = module.get<KafkaProducer>(
+      KafkaProducer,
+    ) as jest.Mocked<KafkaProducer>;
   });
 
   it('should be defined', () => {
@@ -48,11 +50,16 @@ describe('FileApiProducer', () => {
       fileType: FileType.DEBT,
     };
 
-    const sendMessageMock = jest.spyOn(KafkaProducer.prototype, 'sendMessage').mockResolvedValue(undefined);
+    const sendMessageMock = jest
+      .spyOn(KafkaProducer.prototype, 'sendMessage')
+      .mockResolvedValue(undefined);
 
     await fileApiProducer.notifyFileUploaded(file);
 
-    expect(sendMessageMock).toHaveBeenCalledWith(KafkaTopics.fileUploaded, file);
+    expect(sendMessageMock).toHaveBeenCalledWith(
+      KafkaTopics.fileUploaded,
+      file,
+    );
   });
 
   it('should log an error if sendMessage fails', async () => {
@@ -64,8 +71,12 @@ describe('FileApiProducer', () => {
       fileType: FileType.DEBT,
     };
 
-    jest.spyOn(KafkaProducer.prototype, 'sendMessage').mockRejectedValue(new Error('Kafka error'));
+    jest
+      .spyOn(KafkaProducer.prototype, 'sendMessage')
+      .mockRejectedValue(new Error('Kafka error'));
 
-    await expect(fileApiProducer.notifyFileUploaded(file)).rejects.toThrow('Kafka error');
+    await expect(fileApiProducer.notifyFileUploaded(file)).rejects.toThrow(
+      'Kafka error',
+    );
   });
 });
