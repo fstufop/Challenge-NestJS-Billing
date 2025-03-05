@@ -42,7 +42,7 @@ export class PaymentEntity {
   @Column({ type: 'varchar', length: 255, name: 'email' })
   email: string;
 
-  @Column({ type: 'numeric', precision: 10, scale: 2, name: 'debt_amount' }) // Alterado para NUMERIC
+  @Column({ type: 'numeric', precision: 10, scale: 2, name: 'debt_amount' })
   debtAmount: number;
 
   @Column({ type: 'varchar', length: 60, nullable: true, name: 'barcode' })

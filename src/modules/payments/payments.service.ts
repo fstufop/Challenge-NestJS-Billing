@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { PaymentsRepository } from './repositories/payments.repository';
-import { BankslipGeneratorProvider } from 'src/modules/payments/providers/bankslip-generator.provider';
-import { EmailProvider } from 'src/modules/payments/providers/email-provider';
+import { BankslipGeneratorProvider } from './providers/bankslip-generator.provider';
+import { EmailProvider } from './providers/email-provider';
 import { PaymentEntity, PaymentStatus } from './entities/payment.entity';
 import { BankslipValidator } from './validators/bankslip.validator';
 

@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { FileUploadedMessageDto } from 'src/shared/kafka/dtos/file-uploaded-message.dto';
-import { S3Service } from 'src/shared/storage/s3.service';
+import { FileUploadedMessageDto } from '../../shared/kafka/dtos/file-uploaded-message.dto';
+import { S3Service } from '../../shared/storage/s3.service';
 import * as fs from 'fs';
 import * as crypto from 'crypto';
 import { v4 as uuidv4 } from 'uuid';
@@ -16,8 +16,8 @@ import {
 } from './entities/processing-files.entity';
 import { FileProcessingProducer } from './kafka/file-proccessing.producer';
 import * as fastCsv from 'fast-csv';
-import { FileValidatorFactory } from 'src/modules/file-processing/strategies/file-validator.factory';
-import { FileValidator } from 'src/modules/file-processing/strategies/file-validator.interface';
+import { FileValidatorFactory } from '../../modules/file-processing/strategies/file-validator.factory';
+import { FileValidator } from '../../modules/file-processing/strategies/file-validator.interface';
 
 @Injectable()
 export class FileProcessingService {

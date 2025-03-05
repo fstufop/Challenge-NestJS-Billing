@@ -7,14 +7,10 @@ import { PaymentsRepository } from './repositories/payments.repository';
 import { BankslipGeneratorProvider } from 'src/modules/payments/providers/bankslip-generator.provider';
 import { EmailProvider } from 'src/modules/payments/providers/email-provider';
 import { BankslipValidator } from './validators/bankslip.validator';
-import { ScheduleModule } from '@nestjs/schedule';
 import { PaymentCron } from './jobs/payments-retry.jobs';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([PaymentEntity, PaymentsRepository]),
-    ScheduleModule.forRoot(),
-  ],
+  imports: [TypeOrmModule.forFeature([PaymentEntity, PaymentsRepository])],
   controllers: [PaymentsController],
   providers: [
     PaymentsService,

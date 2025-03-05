@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { FileUploadedMessageDto } from 'src/shared/kafka/dtos/file-uploaded-message.dto';
-import { KafkaTopics } from 'src/shared/kafka/enums/kafka.topics.enum';
-import { KafkaProducer } from 'src/shared/kafka/kafka.producer';
+import { FileUploadedMessageDto } from '../../../shared/kafka/dtos/file-uploaded-message.dto';
+import { KafkaTopics } from '../../../shared/kafka/enums/kafka.topics.enum';
+import { KafkaProducer } from '../../../shared/kafka/kafka.producer';
 
 @Injectable()
 export class FileApiProducer extends KafkaProducer {
