@@ -6,7 +6,7 @@ import { FileUploadRepository } from './repositories/file-upload.repository';
 import { FileApiProducer } from './kafka/file-api.producer';
 import { FileUploadedMessageDto } from 'src/shared/kafka/dtos/file-uploaded-message.dto';
 import { extname } from 'path';
-import { FileType } from 'src/shared/validators/file-validator.enum';
+import { FileType } from 'src/modules/file-processing/strategies/file-validator.enum';
 
 @Injectable()
 export class FileApiService {
@@ -36,7 +36,7 @@ export class FileApiService {
       );
 
     const fileExtension = extname(file.originalname).toLowerCase();
-    
+
     if (fileExtension !== '.csv') {
       throw new BadRequestException('Apenas arquivos CSV são permitidos.');
     }

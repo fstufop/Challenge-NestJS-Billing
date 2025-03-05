@@ -5,7 +5,7 @@ export class CreateProcessedLinesTable1740866280870
 {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-          CREATE TABLE processed_lines (
+          CREATE TABLE IF NOT EXISTS processed_lines (
             id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
             file_id UUID NOT NULL,
             line_hash CHAR(64) UNIQUE NOT NULL,
@@ -19,6 +19,6 @@ export class CreateProcessedLinesTable1740866280870
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DROP TABLE processed_lines;`);
+    await queryRunner.query(`DROP TABLE IF EXISTS processed_lines;`);
   }
 }

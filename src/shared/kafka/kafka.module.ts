@@ -3,13 +3,14 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { FileProcessingProducer } from 'src/modules/file-processing/kafka/file-proccessing.producer';
 import { FileProcessingConsumer } from 'src/modules/file-processing/kafka/file-proccessing.consumer';
 import { FileApiProducer } from 'src/modules/file-api/kafka/file-api.producer';
-import { PaymentsConsumer } from 'src/modules/payments/kafka/file-proccessing.consumer';
+import { PaymentsConsumer } from 'src/modules/payments/kafka/payment.consumer';
 import { FileProcessingService } from 'src/modules/file-processing/file-processing.service';
 import { S3Service } from '../storage/s3.service';
 import { ProcessedLineRepository } from 'src/modules/file-processing/repositories/processed-line-repository';
 import { ProcessingFilesRepository } from 'src/modules/file-processing/repositories/processing-files-repository';
-import { FileValidator } from '../validators/interfaces/file-validator.interface';
+import { FileValidator } from '../../modules/file-processing/strategies/file-validator.interface';
 import { FileProcessingModule } from 'src/modules/file-processing/file-processing.module';
+import { PaymentsModule } from 'src/modules/payments/payments.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { FileProcessingModule } from 'src/modules/file-processing/file-processin
       },
     ]),
     FileProcessingModule,
+    PaymentsModule,
   ],
   controllers: [],
   providers: [
